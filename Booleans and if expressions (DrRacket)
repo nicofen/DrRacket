@@ -1,0 +1,46 @@
+(require 2htdp/image)                            ; cmd-E hides the interactions area
+(define I2 (rectangle 20 10 "solid" "blue"))
+
+; To evaluate an if expression:
+; - if the question expression is not a value evaluate it, and replace it with value
+; - if the question is true replace entire if expression with true answer expression
+; - if the question is false replace entire if expression with false answer expression
+; - the question is a value other than true or false so produce an error
+
+(if (< (image-width I2)     ; Evaluate the question expression... reduce all of its
+       (image-height I2))   ; operands to values. We have a call to the primative
+    (image-width I2)        ; image-width. Reduce all of its operands to values.
+    (image-height I2))      ; First operand is constant, produce a value for it.
+
+(if (< (image-width .)     ; If expression. Reduce the question. Reduce the operands
+       (image-height I2))   ; to this less-than. Here's the first operand. That's
+    (image-width I2)        ; image-width of a rectangle picture. We just end up
+    (image-height I2))      ; reducing this expression here this time... becoming 20.
+
+(if (< 20                   ; Now, we're reducing this other operand to the less-than.
+       (image-height I2))   ; The I2 becomes an image.
+    (image-width I2)
+    (image-height I2))
+
+(if (< 20                   ; Continue to reduce this other operand to the less-than.
+       (image-height .))    ; That whole thing becomes 10.
+    (image-width I2)
+    (image-height I2))
+
+; Summarizing: We had to evaluate the if expression. If wants to evaluate its question
+; expression first. This was a call to a primitive, in which both operands were calls
+; to primatives. There is a fair amount of evaluation work we have to do before we've
+; evaluated the question expression. We still now have a call to a primitive.
+
+(if (< 20 10)               ; Both operands are values. Now we actually call (< 20 10).
+    (image-width I2)        ; 20 is not less-than 10... false.
+    (image-height I2))
+ 
+(if false                   ; Go to the remaining rules of the if. The question
+    (image-width I2)        ; expression produced false; replace the entire if
+    (image-height I2))      ; expression with the false answer.
+
+(image-height I2)           ; Reduce operands to values. Produce value for the constant.
+
+(image-height .)           ; Reduce image-width primitive call and its picture argument.
+10
