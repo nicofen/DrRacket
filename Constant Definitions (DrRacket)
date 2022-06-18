@@ -1,0 +1,28 @@
+(require 2htdp/image)
+
+(define WIDTH 400)
+(define HEIGHT 600)
+
+; To form a constant definition:
+; (define <name> <expression>)
+; sequence of characters including: a..z A..Z 0..9 ! @ $ % ^ & * _ + - = ? < >
+; i.e.  hello?  HI!  the-dog  cat<=?
+
+; (* WIDTH HEIGHT)
+; (* 400 HEIGHT)
+; (* 400 600)
+; 240000
+
+; Evaluation rules for constant definitions
+; - to evaluate a constant definition
+;   evaluate the expression and record the resulting value
+;   as the value of the constant with the given name
+; - to evaluate a define constant name:
+;   the value is the recorded value
+
+; https://htdp.org/2022-6-7/Book/part_one.html#%28part._sec~3aarith-images%29
+; in Racket/BSL... images are values and all values are expressions
+(define CAT .)
+(define RCAT (rotate -10 CAT))
+(define LCAT (rotate 10 CAT))
+(beside RCAT CAT LCAT)
