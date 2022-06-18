@@ -1,0 +1,72 @@
+(require 2htdp/image)
+
+; The stepper is functionality built into Dr. Racket that can help you
+; understand the step-by-step evaluation of complex expressions. The stepper
+; helps you understand how the evaluation of an expression produced a
+; certain value in cases where it's too complicated to just see.
+
+; The stepper goes through the file applying beginning student language
+; evaluation rules. On the left hand side we see what Racket's evaluating.
+; On the right hand side we see the result of the current evaluation step.
+
+; The stepper always shows you the innermost expression where all the
+; operands are values. And on the right it's showing you, highlighted
+; in pink/purple, what the value of that expression is.
+
+; -------------------------------------------------------------------------
+
+; It tried to evaluate "(+", but the first operand is not a value so it has
+; to be evaluated. "( *" where both operands are values, so this expression
+; can now be evaluated. The expression "(* 3 2)" highlighted in green tells
+; us that this expression is ready to be evaluated. And it produces 6.
+
+; If I say step again, then what's on the right here moves to the left.
+; Racket is telling us by highlighting the whole expression "(+ 6 1)" green,
+; that it is ready to be evaluated. All of the operands are already values.
+(+ (* 3 2) 1)
+
+; Racket moves through the function definition. It also has seen a call to
+; that function max-dim. The call isn't ready to be evaluated yet because
+; one of its operands (the only operand) is not yet a value. That operand
+; itself is ready to be evaluated because all of its operands are values.
+; And when it evaluates the call to rectangle with those arguments the
+; result produced by that is the rectangle. (max-dim .)
+
+(define (max-dim img)
+  (if (> (image-width img) (image-height img))
+      (image-width img)
+      (image-height img)))
+(max-dim (rectangle 10 20 "solid" "blue"))
+
+; Now we apply the rule for calling a function. We replace the call to
+; the function by the body of the function, where every occurence of the
+; parameter (img) has been replaced by the argument (.).
+(if (> (image-width .) (image-height .))
+    (image-width .)
+    (image-height .))
+
+; If we step again, now Racket is trying to evaluate the if expression.
+; It can't do that because the question is not yet a value. So it wants
+; to evaluate the greater than. It can't do that beause the first operand
+; is not yet a value. It wants to evaluate the call to image-width. It can
+; do that because the first operand is a value. That produces 10.
+(if (> 10 (image-height .))
+    (image-width .)
+    (image-height .))
+
+; Similarly, now it can do the call to image-height, which produces 20.
+(if (> 10 20)
+    (image-width .)
+    (image-height .))
+
+; Now it can evaluate the question expression "(> 10 20)" because both
+; operands are values. That produces false.
+(if false (image-width .) (image-height .))
+
+; Now apply the rule for an if, since the question is the value false,
+; the entire if gets replaced by the false answer expression.
+(image-height .)
+
+; Now Racket can evaluate this call to image-height because the operand
+; is a value and that produces 20.
+20
