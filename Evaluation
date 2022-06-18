@@ -1,0 +1,14 @@
+; primative call rule
+; proceeds left-to-right and inside-to-outside
+;
+; "call to a primative" with "+" being the operator
+; "2" "(* 3 4)" and "(- (+ 1 2) 3)" are operands
+;
+; To evaluate a primative call:
+; - first reduce operands to values
+; - then apply primative to the values
+(+ 2 (* 3 4) (- (+ 1 2) 3))
+; (+ 2 12      (- (+ 1 2) 3))  Step 1
+; (+ 2 12      (- 3       3))  Step 2
+; (+ 2 12      0)              Step 3
+; 14
