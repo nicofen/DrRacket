@@ -1,0 +1,27 @@
+(require 2htdp/image)
+
+; To form a function definition
+; (define (<name> <name>...)   function name ... parameter(s)
+;   <expression>)              body
+(define (bulb c)
+  (circle 15 "solid" c))
+
+; To form a function call expression:
+; (<name-of-defined-function> <expression>...)    operand(s)
+(bulb (string-append "re" "d"))
+; (bulb "red")
+; (circle 15 "solid" "red")
+; .
+
+; To evaluate primitive call
+; - first reduce operands to values (called the arguments)
+; - then apply primitives to the values
+
+; For function definitions
+; - simply record definition
+
+; To evaluate function call
+; - first reduce operands to values (called the arguments)
+; - replace function call by
+;   - body of function in which every occurence of parameter(s)
+;     are replaced by the corresponding argument
