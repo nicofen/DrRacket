@@ -1,0 +1,34 @@
+
+;; 03_a_first_htdf_problem.rkt
+
+; 
+; PROBLEM:
+; 
+; Design a function that pluralizes a given word. (Pluralize means to convert
+; the word to its plural form.) For simplicity you may assume that just adding
+; s is enough to pluralize a word.
+
+
+; How to Design Functions (HtDF)
+; To design a single function.
+; ----------------------------
+; Signature, purpose, stub
+; Examples (wrapped in check-expects)
+; Inventory - template & constants
+; Code body
+; Test and Debug
+
+;; String -> String                        Signature
+;; add "s" to the end of s                 Purpose
+
+(check-expect (plural "pen") "pens")     ; Examples
+(check-expect (plural "lambda") "lambdas")
+
+;(define (plural s) "")                  ; Stub
+
+;(define (plural s)                       ; Template
+;  (... s))
+
+(define (plural s)                      ; Function Body
+  (string-append s "s"))
+
